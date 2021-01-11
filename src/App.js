@@ -22,13 +22,14 @@ class TodoApp extends React.Component {
   }
 
   setComplete = id => {
-    const updatedItems = this.state.items.map(item => {
+    this.setState((state) => ({
+      items: state.items.map(item => {
         if (item.id === id) {
             return { ...item, completed: !item.completed};
         }
         return item;
-        });
-    this.setState({ items: updatedItems });
+      })
+    }));
   }
 
   updateItemToShow = s => {
