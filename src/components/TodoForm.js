@@ -2,10 +2,6 @@ import React from 'react';
 import {v1 as uuid} from "uuid";
 
 class TodoForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { items: [], itemToShow: "all"};
-    }
 
     handleChange = e => {
         this.setState({ text: e.target.value });
@@ -18,6 +14,7 @@ class TodoForm extends React.Component {
       }
 
     render() {
+        const { text } = this.props;
         return (
             <form onSubmit={this.handleSubmit}>
                 <label htmlFor="new-todo">
@@ -26,7 +23,7 @@ class TodoForm extends React.Component {
                 <input
                     id="new-todo"
                     onChange={this.handleChange}
-                    value={this.state.text}
+                    value={text}
                 />
                 <button>
                     Add
