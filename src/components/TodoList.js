@@ -1,39 +1,29 @@
 import React from 'react';
 import Todo from './Todo';
-import FilterButtons from './FilterButtons';
 
 
 class TodoList extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { items: [], itemToShow: "all"};
-    }
-
-    updateItemToShow = s => {
-        this.setState({
-            itemToShow: s
-        });
-    };
 
     render() {
+        const { setCompleted } = this.props;
+        const { removeTodo } = this.props;
+        const { itemToShow } = this.props;
+        let { items } = this.props;
 
-        let items = [];
-
-        if (this.state.itemToShow === "all") {
-            items = this.state.items;
-        } else if (this.state.itemToShow === "completed") {
-            items = this.state.items.filter(item => item.completed);
-        } else if (this.state.itemToShow === "active") {
-            items = this.state.items.filter(item => !item.completed);
+        if (itemToShow === "all") {
+            items = this.props.items;
+        } else if (itemToShow === "completed") {
+            items = this.props.items.filter(item => item.completed);
+        } else if (itemToShow === "active") {
+            items = this.props.items.filter(item => !item.completed);
         } 
 
         const el = items.map(item => {
-            return <Todo key={item.id} id={item.id} completed={item.completed} text={item.text} removeTodo={this.remove} setCompleted={this.setComplete}/>
+            return <Todo key={item.id} id={item.id} completed={item.completed} text={item.text} removeTodo={removeTodo} setCompleted={setCompleted}/>
         });
         return (
             <div>
                 {el}
-                <FilterButtons updateItemToShow={this.updateItemToShow}/>
             </div>
         );
     }
